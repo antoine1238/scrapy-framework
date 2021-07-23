@@ -3,7 +3,7 @@ autopep8 > sirve para formatear nuestro código de manera eficiente siguiendo la
 Comandos Básicos:
     -scrapy startproject <name>                       > para crear el proyecto
     -scrapy shell <"url">                             > para abrir la consola interactiva usando la url de la pag. como base 
-    -scrapy crawl <variable name de la clase spider>            > ejecuta el scripts de scrapy
+    -scrapy crawl <variable name de la clase spider>       > ejecuta el scripts de scrapy
     -scrapy crawl <v. s.> -o <nombre_archivo.(json, csv, ect)>  > ejecuta el scripts de scrapy y lo guarda en un archivo que especifiquemos.
 
 
@@ -19,7 +19,8 @@ Estructura de scrapy:
 
 - Folder-spiders: en donde se crearán los scripts.
 - items.py: transforma los datos que se reciben del requests.
-- middlewares.py: trabaja con un concepto denominado señales: controla eventos que suceden entre los requests y la captura de información
+- middlewares.py: trabaja con un concepto denominado señales: controla eventos que suceden entre los requests y la captura de
+                  información
 - pipelines.py: permite modificar los datos desde que entran al spider (scripts que extraen información) hasta el final.
 - settings.py: archivo con configuraciones del uso de Scrapy.
 - scrapy.cfg Contiene la informacion para el deply
@@ -41,7 +42,8 @@ clase Spider:
         "MEMUSAGE_LIMIT_MB": 2048,       > limita el uso de memoria RAM     
         "MEMUSAGE_NOTIFY_MAIL": ["@"],   > de superarse el uso de memoria RAM, este enviará un mensaje al email especificado
         "ROBOTSTXT_OBEY": True,          > para que obedesca las limitaciones del robots.txt de la pagina
-        "USER_AGENT": "antoine"          > cuando ejecutemos el spider, podemos definir nuestro nombre para dar información al servidor
+        "USER_AGENT": "antoine"          > cuando ejecutemos el spider, podemos definir nuestro nombre para dar información 
+                                           al servidor
         "FEED_EXPORT_ENCODING": "utf-8"  > enconding de los datos
     }
 
@@ -121,7 +123,7 @@ clase Spider:
                     if link_next:  # si aún hay el boton next, seguirá obteniendo datos llamandose otra vez
                         yield response.follow(link_next, callback=self.parse_quotes, cb_kwargs={'citas':citas}) 
                         
-                    else:          # si ya no esta el boton next, entonces retorna todos los datos obtenidos para que se guarden 
+                    else:    # si ya no esta el boton next, entonces retorna todos los datos obtenidos para que se guarden 
                         yield {
                             'citas': citas    
                         }
