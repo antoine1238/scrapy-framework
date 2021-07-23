@@ -1,8 +1,8 @@
 autopep8 > sirve para formatear nuestro código de manera eficiente siguiendo la guia de estilos de python 
 
 Comandos Básicos:
-    -scrapy startproject <name>                                 > para crear el proyecto
-    -scrapy shell <"url">                                       > para abrir la consola interactiva usando la url de la pag. como base 
+    -scrapy startproject <name>                       > para crear el proyecto
+    -scrapy shell <"url">                             > para abrir la consola interactiva usando la url de la pag. como base 
     -scrapy crawl <variable name de la clase spider>            > ejecuta el scripts de scrapy
     -scrapy crawl <v. s.> -o <nombre_archivo.(json, csv, ect)>  > ejecuta el scripts de scrapy y lo guarda en un archivo que especifiquemos.
 
