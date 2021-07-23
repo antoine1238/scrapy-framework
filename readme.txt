@@ -44,13 +44,13 @@ clase Spider:
             "FEED_EXPORT_ENCODING": "utf-8"     > enconding de los datos
         }
 
-    Funciones a sobreescribir obligatoriamente:
-        parse: 
+    Funcion a sobreescribir obligatoriamente:
+        Parse: 
             esta recibe la respuesta y con ello podemos analizar y traer el contenido de la url indicada
             aqui por ejemplo obtenemos los datos y su posterior guardado en un nuevo archivo.
             esta recibe un parametro llamado "response" el cual dentro tiene toda la informacion que se obtuvo de las urls que definimos en "start_urls".
 
-        ejemplo: 
+        Ejemplo: 
             def parse(self, response):
                 with open("archivo.txt", "w") as f:
                     f.write(response.text)
@@ -102,11 +102,11 @@ clase Spider:
                 def parse_quotes(self, response, **kwargs):
                     if kwargs:
                         citas = kwargs['citas']
-                    citas.extend(response.xpath("//div[@class='col-md-8']/div[@class='quote']/span[@class='text']/text()").getall())   # añade datos al diccionario como un append
+                    citas.extend(response.xpath("//div[@class='col-md-8']/div[@class='quote']/span[@class='text']/text()").getall()) # añade datos al diccionario como un append
                     
                     link_next = response.xpath("//li[@class='next']/a/@href").get()
                     if link_next:
-                        yield response.follow(link_next, callback=self.parse_quotes, cb_kwargs={'citas':citas})    # si aún hay el boton next, seguirá obteniendo datos llamandose otra vez
+                        yield response.follow(link_next, callback=self.parse_quotes, cb_kwargs={'citas':citas})  # si aún hay el boton next, seguirá obteniendo datos llamandose otra vez
                     else: 
                         yield {
                             'citas': citas              # si ya no esta el boton next, entonces retorna todos los datos obtenidos para que se guarden 
@@ -139,12 +139,14 @@ Scrapy shell:
         request.status
         request.follow(link, callback=self.parse, cb_kwargs={'mensaje':mensaje}) > Recibe dos parametros obligatorios el link que obtuvimos con xpath y la funcion que se va a ejecutar 
 
-    response: para navegar por los contenidos del html usando xpath
+    Response: para navegar por los contenidos del html usando xpath
         response.xpath("//h1/a/text()").get()                                                               > titulo
         response.xpath("//div/span[@class='text' and @itemprop='text']").getall()                           > frases de cada seccion
         response.xpath("//div[contains(@class, 'tags-box')]//a[contains(@class, 'tag')]/text()").getall()   > generos
+        response.xpath("//div[@class='quote']/span/small/text()").getall()                                  > autores
 
-    metodos dentro del xpath:
+
+    Metodos dentro del xpath:
         div[@class='', @id='', @href='']    > obtiene la etiqueta selecionada según cumpla el filtro de sus atributos
         div[contains(@class, "tags")]       > contains: recibe el atributo a filtrar y el valor del mismo. Usado cuando la etiqueta tiene varias clases
         text()                              > para sacar el texto de la etiqueta. va acompañado de get() o getall() al final
